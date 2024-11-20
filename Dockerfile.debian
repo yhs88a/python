@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1@sha256:865e5dd094beca432e8c0a1d5e1c465db5f998dca4e439981029b3b81fb39ed5
+
+# renovate: datasource=docker depName=python
+ARG IMAGE_VERSION=3.13.0
+# renovate: datasource=docker depName=yhs88a/debian
+ARG BASE_VERSION=bullseye
+
+FROM python:${IMAGE_VERSION}-${BASE_VERSION} AS base
+
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends tzdata locales-all locales \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -fs /usr/share/zoneinfo/Asia/Singapore /etc/localtime \
+    && dpkg-reconfigure --frontend noninteractive tzdata \
+    && locale-gen en_US.UTF-8 \
+    && update-locale
+
+ENV LANG="en_US.UTF-8" \
+    LANGUAGE="en_US:en" \
+    LC_ALL="en_US.UTF-8"
+
+USER root
