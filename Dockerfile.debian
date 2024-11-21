@@ -2,7 +2,7 @@
 
 # renovate: datasource=docker depName=python
 ARG IMAGE_VERSION=3.13.0
-# renovate: datasource=docker depName=yhs88a/debian
+# renovate: datasource=docker depName=debian
 ARG BASE_VERSION=bullseye
 
 FROM python:${IMAGE_VERSION}-${BASE_VERSION} AS base
